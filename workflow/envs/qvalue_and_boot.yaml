@@ -1,0 +1,14 @@
+name: qvalue_and_boot
+channels:
+- conda-forge
+- bioconda
+- twillis209
+dependencies:
+- r-base >= 4.2.3
+- r-data.table >= 1.14.8
+- r-boot
+- r-r.utils
+- r-desctools
+- r-pracma
+- bioconductor-qvalue
+- bioconductor-genomicranges

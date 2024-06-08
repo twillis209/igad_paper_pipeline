@@ -1,0 +1,36 @@
+library(data.table)
+setDTthreads(snakemake@threads)
+library(pracma)
+library(parallel)
+library(magrittr)
+library(GenomicRanges)
+
+gwas <- fread(snakemake@input$gwas, sep = '\t', select = c('CHR38', 'BP38', 'P'))
+gwas <- gwas[!is.na(P)]
+
+gwas <- gwas[!(CHR38 == 6 & BP38 %between% c(24e6, 45e6))]
+gwas[, CHR38 := as.character(CHR38)]
+gwas[, end2 := BP38+1]
+setkey(gwas, CHR38, BP38, end2)
+
+all_granges <- readRDS(snakemake@input[['all_genes']])
+
+gene_dat <- data.table(data.frame(all_granges))
+gene_dat <- gene_dat[seqnames %like% '^chr\\d+$']
+gene_dat[, 'chr' := tstrsplit(seqnames, 'chr', keep = 2)]
+
+sample_genes_and_compute_gif<- function(no_of_genes) {
+  sub_gene_dat <- gene_dat[sample(.N, no_of_genes)]
+  setkey(sub_gene_dat, chr, start, end)
+  sub_gene_overlap <- foverlaps(gwas, sub_gene_dat, mult = 'first', nomatch = NULL)
+
+  sub_gene_overlap[, median(qchisq(P, lower.tail = F, df = 1), na.rm = T)]/qchisq(0.5, df = 1)
+}
+
+RNGkind("L'Ecuyer-CMRG")
+
+set.seed(snakemake@params$seed)
+
+res <- Reduce(rbind, mclapply(1:1000, FUN = function(i) sample_genes_and_compute_gif(snakemake@params$no_of_genes), mc.cores = snakemake@threads))
+
+fwrite(data.table(gif = res), sep = '\t', file = snakemake@output[[1]])

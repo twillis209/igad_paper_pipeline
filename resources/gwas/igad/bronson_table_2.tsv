@@ -1,0 +1,7 @@
+"Closest gene(s)"	"Variant"	"hg19"	"minor_allele"	"MAF.swedish_cases"	"MAF.swedish_controls"	P	q	OR	Type	"Immune diseases sharing this locus"
+HLA-DQA1	rs116041786	6:32602396	C	0.144	0.387	3.3e−92	1.0e−87	0.38	Intergenic	Celiac,Graves',IBD,Sjögren's
+IFIH1	rs1990760	2:163124051	G	0.293	0.373	3.7e−15	2.7e−12	0.70	Missense	T1D,SLE,psoriasis,vitiligo
+PVT1	rs11299600	8:129204573	"1-bp deletion"	0.189	0.253	4.3e−11	2.4e−8	0.73	Intergenic	RA
+ATG13–AMBRA1	rs4565870	11:46349869	C	0289	0.236	6.7e−10	3.5e−7	1.38	Intergenic	
+AHI1	rs7773987	6:135707486	C	0.513	0.446	8.4e−10	4.3e−7	1.30	Intronic	MS
+CLEC16A	rs34069391	16:11161214	"1-bp insertion"	0.143	0.196	1.4e−9	6.9e−7	0.71	Intronic	T1D,MS,PBC

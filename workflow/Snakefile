@@ -1,0 +1,108 @@
+import datetime
+import re
+import os
+import pandas as pd
+
+configfile: "config/config.yaml"
+
+metadata_daf = pd.read_csv('resources/gwas/metadata/metadata_all_fields.tsv', sep = '\t')
+
+max_time = 120
+
+def get_permute_time(wildcards, threads):
+    return min(max_time, ((int(wildcards.draws)/100)*3600)/int(threads))
+
+def get_mem_mb(wildcards, threads):
+    return 3300 * threads
+
+def get_metadata_field(key, column, key_field = 'abbrv'):
+    return metadata_daf[metadata_daf[key_field] == key][column].values[0]
+
+# Gets script path relative to location of Snakefile given by workflow.basedir
+def script_path(script):
+    return os.path.join(workflow.basedir, "scripts", script)
+
+def env_path(env):
+    return os.path.join(workflow.basedir, "envs", env)
+
+imd_traits = [
+"asthma-ex",
+"hyperpara",
+"hypothy",
+"derm-ecz",
+"pbc",
+"addi",
+"psc",
+"ra",
+"jia",
+"sle",
+"crohns",
+"t1d",
+"ms",
+"uc-delange",
+"liu-decode-lyons-dennis-iga",
+"igm",
+"igan"]
+
+include: 'rules/lookup_ld_pattern.smk'
+include: 'rules/gwas/gwas.smk'
+include: 'rules/gps/gps.smk'
+include: 'rules/cfdr/cfdr.smk'
+include: 'rules/sumher.smk'
+include: 'rules/cfdr/igad_cfdr.smk'
+include: 'rules/gwas/igad_meta.smk'
+include: 'rules/gwas/bronson_investigation.smk'
+include: 'rules/gwas/iga_meta.smk'
+include: 'rules/gwas/export.smk'
+include: 'rules/wildcard_constraints.smk'
+include: 'rules/pub/igad_paper/tables.smk'
+include: 'rules/pub/igad_paper/figures.smk'
+include: 'rules/pub/igad_paper/locus_plots.smk'
+include: 'rules/pub/igad_paper/misc.smk'
+include: 'rules/pub/igad_paper/export_data.smk'
+include: 'rules/pub/igad_paper/inline_data.smk'
+include: 'rules/pub/igad_paper/coloc.smk'
+include: 'rules/pub/igad_paper/mr.smk'
+include: 'rules/pub/igad_paper/subsets_and_ld.smk'
+include: 'rules/pub/igad_paper/h2.smk'
+include: 'rules/pub/igad_paper/collate_associations_for_h2.smk'
+include: 'rules/gene_centric/pid.smk'
+include: 'rules/gene_centric/qqplots.smk'
+include: 'rules/ldsc.smk'
+include: 'rules/python/export.py'
+
+gwas_strand_policy = {'status': 'nonswitched',
+                      'codes_to_retain': ["rev", "revcomp", "comp", "nochange", "ambig"],
+                      'flip': ["rev", "ambig", "revcomp", "comp"]}
+
+module gwas_pipeline:
+    snakefile: github("twillis209/GWAS_tools", path = "workflow/Snakefile", commit = "c79ae049a08d091ec3609ddb70aae5c37b764290")
+    config: config["GWAS_tools"]
+
+# Ugly but this prevents import of redundant 1kGP rules
+use rule fix_alleles_and_id from gwas_pipeline as gwas_tools_fix_alleles_and_id
+use rule check_for_minimal_column_set from gwas_pipeline as gwas_tools_check_for_minimal_column_set
+use rule recalculate_missing_summary_statistics from gwas_pipeline as gwas_tools_recalculate_missing_summary_statistics
+use rule detect_build from gwas_pipeline as gwas_tools_detect_build
+use rule create_bed_file_for_liftover from gwas_pipeline as gwas_tools_create_bed_file_for_liftover
+use rule prepare_file_for_liftover from gwas_pipeline as gwas_tools_prepare_file_for_liftover
+use rule liftover from gwas_pipeline as gwas_tools_liftover
+use rule merge_liftovered_rows_with_summary_statistics from gwas_pipeline as gwas_tools_merge_liftovered_rows_with_summary_statistics
+use rule tabulate_allele_switches_using_1kG from gwas_pipeline as gwas_tools_tabulate_allele_switches_using_1kG
+use rule tabulate_allele_switches_using_hg38_1kG from gwas_pipeline as gwas_tools_tabulate_allele_switches_using_hg38_1kG
+
+use rule align_alleles_to_1kG from gwas_pipeline as gwas_tools_align_alleles_to_1kG with:
+    output:
+        "results/processed_gwas/{input_name}.tsv.gz"
+    params:
+        strand_policy = gwas_strand_policy,
+        retentions = lambda w: config.get('GWAS_tools').get('snps_to_retain')
+
+use rule rehead from gwas_pipeline as rehead with:
+    input:
+        "resources/gwas/{input_name}.tsv.gz"
+
+module kGP_pipeline:
+    snakefile: github("twillis209/1kGP_pipeline", path = "workflow/Snakefile", tag = "v1.0")
+
+use rule * from kGP_pipeline as kGP_*

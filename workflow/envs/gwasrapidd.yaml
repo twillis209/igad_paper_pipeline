@@ -1,0 +1,11 @@
+name: gwasrapidd
+channels:
+- conda-forge
+- bioconda
+- twillis209
+- dnachun
+dependencies:
+- r-base >= 4.2.3
+- r-data.table >= 1.14.8
+- r-gwasrapidd
+- r-r.utils

@@ -1,0 +1,13 @@
+name: locuszoomr
+channels:
+- conda-forge
+- bioconda
+- twillis209
+dependencies:
+- r-base >= 4.2.3
+- r-data.table >= 1.14.8
+- r-locuszoomr
+- r-gridextra
+- bioconductor-ensdb.hsapiens.v75
+- bioconductor-ensdb.hsapiens.v86
+- r-r.utils

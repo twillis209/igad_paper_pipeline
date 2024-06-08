@@ -1,0 +1,6 @@
+name: hlala
+channels:
+- conda-forge
+- bioconda
+dependencies:
+- hla-la >= 1.0.3
