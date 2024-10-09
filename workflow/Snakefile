@@ -1,9 +1,14 @@
+from snakemake.utils import min_version
+min_version("8.0")
+
 import datetime
 import re
 import os
 import pandas as pd
 
 configfile: "config/config.yaml"
+
+container: "docker://twillis209/igad-paper-pipeline:latest"
 
 metadata_daf = pd.read_csv('resources/gwas/metadata/metadata_all_fields.tsv', sep = '\t')
 
@@ -60,7 +65,6 @@ include: 'rules/pub/igad_paper/figures.smk'
 include: 'rules/pub/igad_paper/locus_plots.smk'
 include: 'rules/pub/igad_paper/misc.smk'
 include: 'rules/pub/igad_paper/export_data.smk'
-include: 'rules/pub/igad_paper/inline_data.smk'
 include: 'rules/pub/igad_paper/coloc.smk'
 include: 'rules/pub/igad_paper/mr.smk'
 include: 'rules/pub/igad_paper/subsets_and_ld.smk'

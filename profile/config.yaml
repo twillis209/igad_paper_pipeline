@@ -1,0 +1,14 @@
+local-cores: 4
+cores: 16
+resources:
+  # LDlink does not allow concurrent API calls
+  - ldlink_calls=1
+default-resources:
+  runtime: 5
+  mem_mb: threads * 3420
+software-deployment-method: conda apptainer
+conda-frontend: mamba
+scheduler: greedy
+rerun-incomplete: True
+use-singularity: True
+rerun-triggers: "mtime"
