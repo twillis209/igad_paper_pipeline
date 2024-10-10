@@ -52,7 +52,7 @@ rule join_pair_gwas:
         beta_col = 'BETA',
         se_col = 'SE',
         id_col = 'SNPID'
-    conda: env_path("pid_cfdr_pipeline.yaml")
+    #conda: env_path("pid_cfdr_pipeline.yaml")
     group: "gwas"
     script:
         script_path("gwas/join_pair_gwas_stats.R")
@@ -76,7 +76,7 @@ rule join_multiple_gwas_for_cfdr:
     resources:
         runtime = 10
     group: "gwas"
-    conda: env_path("pid_cfdr_pipeline.yaml")
+    #conda: env_path("pid_cfdr_pipeline.yaml")
     script:
         script_path("gwas/join_multiple_gwas_stats.R")
 
@@ -96,7 +96,7 @@ rule make_plink_range:
     resources:
         runtime = 15
     group: "gwas"
-    conda: env_path("pid_cfdr_pipeline.yaml")
+    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path('gwas/make_plink_range.R')
 
 use rule make_plink_range as make_plink_range_for_merged_gwas with:
@@ -173,7 +173,7 @@ rule prune_gwas:
      resources:
          runtime = 15
      group: "gwas"
-     conda: env_path("pid_cfdr_pipeline.yaml")
+     #conda: env_path("pid_cfdr_pipeline.yaml")
      script: script_path("gwas/prune_gwas.R")
 
 use rule prune_gwas as prune_merged_gwas with:
@@ -201,7 +201,7 @@ rule draw_manhattan:
     resources:
         runtime = 15
     group: "gwas"
-    conda: env_path("pid_cfdr_pipeline.yaml")
+    #conda: env_path("pid_cfdr_pipeline.yaml")
     script:
         script_path("gwas/plot_gwas_manhattan.R")
 
@@ -219,7 +219,7 @@ rule draw_qqplot:
     resources:
         runtime = 10
     group: "gwas"
-    conda: env_path("pid_cfdr_pipeline.yaml")
+    #conda: env_path("pid_cfdr_pipeline.yaml")
     script:
         script_path("gwas/plot_qqplot.R")
 
@@ -239,7 +239,7 @@ rule compute_genomic_inflation_factor:
     resources:
         runtime = 15
     group: "gwas"
-    conda: env_path("pid_cfdr_pipeline.yaml")
+    #conda: env_path("pid_cfdr_pipeline.yaml")
     script:
         script_path("gwas/compute_genomic_inflation_factor.R")
 
@@ -264,7 +264,7 @@ checkpoint distance_clump_gwas:
     resources:
         runtime = 5
     group: "gwas"
-    conda: env_path("pid_cfdr_pipeline.yaml")
+    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("gwas/distance_clump.R")
 
 rule annotate_lead_snps:
@@ -303,7 +303,7 @@ rule draw_manhattan_with_lead_snp_annotation:
     resources:
         runtime = 20
     group: "gwas"
-    conda: env_path("pid_cfdr_pipeline.yaml")
+    #conda: env_path("pid_cfdr_pipeline.yaml")
     script:
         script_path("gwas/plot_gwas_manhattan.R")
 
@@ -326,7 +326,7 @@ rule subset_gwas_for_lead_snp_neighbourhood:
     threads: 8
     resources:
     group: "gwas"
-    conda: env_path("pid_cfdr_pipeline.yaml")
+    #conda: env_path("pid_cfdr_pipeline.yaml")
     script:
         script_path("gwas/join_gwas_with_lead_snp_neighbourhood.R")
 
@@ -347,7 +347,7 @@ rule tabulate_merge_stats:
         bp_col = 'BP38',
         ref_col = 'REF',
         alt_col = 'ALT',
-    conda: env_path("pid_cfdr_pipeline.yaml")
+    #conda: env_path("pid_cfdr_pipeline.yaml")
     group: "gwas"
     script:
         script_path("gwas/tabulate_merge_stats.R")
@@ -373,7 +373,7 @@ rule subset_summary_statistics_about_variant:
     resources:
         runtime = 15
     group: "gwas"
-    conda: env_path("pid_cfdr_pipeline.yaml")
+    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("ldlink/subset_sumstats_about_variant.R")
 
 rule subset_1kGP_data_for_ld_matrix:
@@ -414,7 +414,7 @@ rule merge_sumstats_with_r2:
     threads: 16
     resources:
         runtime = 20
-    conda: env_path("pid_cfdr_pipeline.yaml")
+    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("ldlink/merge_r2_with_sumstats.R")
 
 rule draw_locuszoom_plot_without_r2:
@@ -425,7 +425,7 @@ rule draw_locuszoom_plot_without_r2:
     params:
         window = lambda w: int(w.window_size.replace('kb', '')) * 1000,
         with_genes = lambda w: True if w.gene_track == 'with_genes' else False
-    conda: env_path("locuszoomr.yaml")
+    #conda: env_path("locuszoomr.yaml")
     script: script_path("gwas/draw_locuszoom_plot.R")
 
 use rule draw_locuszoom_plot_without_r2 as draw_locuszoom_plot_with_r2 with:

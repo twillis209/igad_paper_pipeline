@@ -9,8 +9,7 @@ rule compute_ld_scores:
     threads: 8
     resources:
         runtime = 150,
-    conda:
-        "../envs/ldsc.yaml"
+    conda: env_path("ldsc.yaml")
     shell:
         """
         ldsc.py --bfile {params.in_stem} --l2 --ld-wind-cm 1 --out {params.out_stem}
@@ -32,8 +31,6 @@ rule preprocess_sumstats_for_ldsc_munging:
         snp_col = 'SNPID'
     threads: 8
     resources:
-    conda:
-        env_path("pid_cfdr_pipeline.yaml")
     script:
         script_path("ldsc_and_sumher/preprocess_sumstats.R")
 
@@ -65,7 +62,7 @@ rule munge_randomised_sum_stats:
     threads: 1
     resources:
         runtime = 20
-    conda: "../envs/ldsc.yaml"
+    conda: env_path("ldsc.yaml")
     shell:
         """
         munge_sumstats.py --sumstats {input} --N-con {params.controls} --N-cas {params.cases} --snp {params.snp} --out {params.output_filename} --signed-sumstats {params.signed_sumstats_col} --p {params.pvalue_col} --a1 {params.a1} --a2 {params.a2} --frq {params.frq};
@@ -83,5 +80,5 @@ rule estimate_h2:
     threads: 1
     resources:
         runtime = 5
-    conda: "../envs/ldsc.yaml"
+    conda: env_path("ldsc.yaml")
     shell: "ldsc.py --h2 {input.sumstats} --out {output} --ref-ld {params.ld_score_stem} --w-ld {params.ld_score_stem} --out {params.out_stem}"

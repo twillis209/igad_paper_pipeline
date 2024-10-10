@@ -18,7 +18,7 @@ rule run_bronson_and_finngen_igad_meta_analysis:
     resources:
         runtime = 20
     group: "gwas"
-    conda: env_path("pid_cfdr_pipeline.yaml")
+    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("igad_meta/run_meta_analysis.R")
 
 rule copy_bronson_finngen_meta_analysis_to_results:
@@ -48,7 +48,7 @@ rule apply_genomic_control_to_igad_meta_for_cfdr:
     resources:
         runtime = 20
     group: "gwas"
-    conda: env_path("pid_cfdr_pipeline.yaml")
+    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("igad_meta/apply_gc_to_meta.R")
 
 rule copy_gc_bronson_finngen_meta_analysis_to_results:
@@ -78,7 +78,7 @@ rule join_all_igad_data_sets:
     resources:
         runtime = 20
     group: "gwas"
-    conda: env_path("pid_cfdr_pipeline.yaml")
+    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("igad_meta/join_all_igad_data.R")
 
 rule distance_clump_igad_meta:
@@ -102,7 +102,7 @@ rule distance_clump_igad_meta:
     resources:
         runtime = 5
     group: "gwas"
-    conda: env_path("pid_cfdr_pipeline.yaml")
+    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("gwas/distance_clump.R")
 
 use rule annotate_lead_snps as annotate_igad_meta_lead_snps with:
@@ -133,7 +133,7 @@ rule collate_igad_meta_lead_snp_sum_stats:
     resources:
         runtime = 5
     group: "gwas"
-    conda: env_path("pid_cfdr_pipeline.yaml")
+    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("gwas/collate_lead_snp_sum_stats.R")
 
 use rule compute_genomic_inflation_factor as compute_genomic_inflation_factors_for_igad_meta with:
@@ -199,7 +199,7 @@ rule plot_ahi1_tnfaip3_locus:
     resources:
         runtime = 20
     group: "gwas"
-    conda: env_path("locuszoomr.yaml")
+    #conda: env_path("locuszoomr.yaml")
     script: script_path("igad_meta/plot_ahi1_tnfaip3.R")
 
 use rule distance_clump_igad_meta as distance_clumped_igad_meta_with_ukb with:

@@ -6,7 +6,7 @@ resources:
 default-resources:
   runtime: 5
   mem_mb: threads * 3420
-software-deployment-method: conda apptainer
+software-deployment-method: "conda apptainer"
 conda-frontend: mamba
 scheduler: greedy
 rerun-incomplete: True

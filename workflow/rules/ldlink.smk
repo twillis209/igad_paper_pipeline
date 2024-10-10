@@ -14,5 +14,5 @@ rule fetch_ld_matrix:
     resources:
         runtime = 15
     group: "gwas"
-    conda: env_path("pid_cfdr_pipeline.yaml")
+    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("ldlink/fetch_ld_matrix.R")

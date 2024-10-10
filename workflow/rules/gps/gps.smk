@@ -7,8 +7,9 @@ rule compute_gps_for_trait_pair:
     output:
         "results/gps/{trait_A}_and_{trait_B}/{join}/{variant_set}/{variant_type}/{window_size}_1_{r2}/gps_value.tsv"
     localrule: True
+    container: "dockerhub://twillis209/gps-cpp:latest"
     shell:
-        "workflow/scripts/gps_cpp/build/apps/computeGpsCLI -i {input} -a P.A -b P.B -c {wildcards.trait_A} -d {wildcards.trait_B} -n {threads} -f pp -o {output}"
+        "computeGpsCLI -i {input} -a P.A -b P.B -c {wildcards.trait_A} -d {wildcards.trait_B} -n {threads} -f pp -o {output}"
 
 rule permute_trait_pair:
     input:
@@ -19,8 +20,9 @@ rule permute_trait_pair:
     resources:
         runtime = get_permute_time,
     group: "permute"
+    container: "dockerhub://twillis209/gps-cpp:latest"
     shell:"""
-        workflow/scripts/gps_cpp/build/apps/permuteTraitsCLI -i {input} -o {output} -a P.A -b P.B -c {threads} -n {wildcards.draws}
+        permuteTraitsCLI -i {input} -o {output} -a P.A -b P.B -c {threads} -n {wildcards.draws}
 
         if grep -q inf {output}; then
             exit 1
@@ -34,7 +36,6 @@ rule fit_gev_and_compute_gps_pvalue_for_trait_pair:
     output:
         "results/gps/{trait_A}_and_{trait_B}/{join}/{variant_set}/{variant_type}/{window_size}_1_{r2}/{draws}_draws/pvalue.tsv"
     localrule: True
-    conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("gps/fit_gev_and_compute_gps_pvalue.R")
 
 rule run_gps_on_trait_and_imds:
@@ -67,19 +68,3 @@ rule run_gps_on_trait_and_imds:
             )
 
         pd.DataFrame(d).to_csv(output[0], sep = '\t', index = False)
-
-rule compute_qvalues_for_gps_on_trait_and_imds:
-    input:
-        "results/gps/combined/{trait}/inner/sans_mhc/all/1000kb_1_0_8/3000_draws/pvalues.tsv"
-    output:
-        "results/gps/combined/{trait}/inner/sans_mhc/all/1000kb_1_0_8/3000_draws/qvalues.tsv"
-    localrule: True
-    conda: env_path("pid_cfdr_pipeline.yaml")
-    script: script_path("gps/compute_qvalues_for_gps_pvalues.R")
-
-
-rule run_pid_against_updated_iga_with_gps:
-    input:
-        "results/gps/bronson-finngen-igad_and_liu-decode-lyons-dennis-iga/inner/sans_mhc/snps_only/1000kb_1_0_8/3000_draws/pvalue.tsv",
-        "results/gps/10kG-finngen-li-bronson-ukb-pad_and_liu-decode-lyons-dennis-iga/inner/sans_mhc/snps_only/1000kb_1_0_8/3000_draws/pvalue.tsv",
-        "results/gps/10kG-finngen-li-ukb-cvid_and_liu-decode-lyons-dennis-iga/inner/sans_mhc/snps_only/1000kb_1_0_8/3000_draws/pvalue.tsv"

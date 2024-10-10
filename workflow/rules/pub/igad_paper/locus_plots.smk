@@ -10,7 +10,7 @@ rule draw_igad_locus_plot_for_igad_paper:
     threads: 2
     resources:
         runtime = 8
-    container: "docker://twillis209/r-locuszoomr:latest"
+    #container: "docker://twillis209/r-locuszoomr:latest"
     script: script_path("pub/igad_paper/figures/draw_locus_plot_for_igad_paper.R")
 
 use rule draw_igad_locus_plot_for_igad_paper as draw_iga_locus_plot_for_igad_paper with:

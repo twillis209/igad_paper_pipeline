@@ -10,5 +10,5 @@ rule drop_spurious_igad_cfdr_hits:
     resources:
         runtime = 20
     group: "gwas"
-    conda: env_path("pid_cfdr_pipeline.yaml")
+    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("igad_meta/drop_spurious_hits.R")

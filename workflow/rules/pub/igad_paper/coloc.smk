@@ -18,7 +18,7 @@ rule subset_summary_statistics_about_variant_for_igad_paper:
         window = lambda w: int(w.window_size.replace('kb', '')) * 1000
     threads: 8
     resources:
-    conda: env_path("pid_cfdr_pipeline.yaml")
+    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("pub/igad_paper/misc/subset_summary_statistics_about_variant_for_igad_paper.R")
 
 def map_igad_paper_abbrv_to_metadata_abbrv(paper_abbrv):
@@ -44,7 +44,7 @@ rule run_coloc_for_two_traits_for_igad_paper:
         second_se = lambda w: f'SE.{w.second_trait}',
         maf_col = 'ALT_FREQS',
     localrule: True
-    conda: env_path("coloc.yaml")
+    #conda: env_path("coloc.yaml")
     script: script_path("pub/igad_paper/misc/run_coloc_for_igad_and_aux_trait.R")
 
 rule run_coloc_at_runx3_locus:
@@ -61,7 +61,7 @@ rule run_coloc_for_trait_and_iga_at_all_iga_gws_hits:
     params:
         genes = config.get('igad_paper').get('iga_loci')
     localrule: True
-    conda: env_path("pid_cfdr_pipeline.yaml")
+    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("pub/igad_paper/misc/compile_coloc_results_at_index_snps.R")
 
 use rule run_coloc_for_trait_and_iga_at_all_iga_gws_hits as run_coloc_for_igad_and_aux_traits_at_all_cfdr_hits with:

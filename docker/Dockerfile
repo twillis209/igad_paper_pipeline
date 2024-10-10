@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y \
     cmake \
     git \
     build-essential \
+    wget \
     && rm -rf /var/lib/apt/lists/*
 
 RUN install2.r --error \
@@ -54,5 +55,8 @@ RUN /usr/local/lib/R/site-library/littler/examples/installBioc.r --error \
 RUN R -e "remotes::install_github('myles-lewis/locuszoomr')"
 RUN R -e "remotes::install_github('twillis209/cfdr')"
 
-# Set the default command to start R
-CMD ["R"]
+RUN wget -O /usr/local/bin/plink2.zip https://s3.amazonaws.com/plink2-assets/plink2_linux_x86_64_20241007.zip
+RUN unzip /usr/local/bin/plink2.zip -d /usr/local/bin
+
+# Maybe rocker sets the default command to R?
+ENTRYPOINT ["/bin/bash"]

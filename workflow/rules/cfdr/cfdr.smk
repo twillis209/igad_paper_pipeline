@@ -38,7 +38,7 @@ rule run_iterative_cfdr:
         v_cols = lambda wildcards: [f'v.{i+1}' for i,x in enumerate(wildcards.aux_traits.split('_and_'))],
         p_threshold = lambda wildcards: pow(10, -int(wildcards.cfdr_threshold)),
     group: "cfdr"
-    conda: env_path("cfdr.yaml")
+    #conda: env_path("cfdr.yaml")
     script:
         script_path("cfdr/iterative_cfdr.R")
 
@@ -60,7 +60,7 @@ checkpoint write_out_per_iteration_cfdr:
         prune_cols = lambda wildcards: [f'prune_in.{i+1}' for i,x in enumerate(wildcards.aux_traits.split('_and_'))],
         v_cols = lambda wildcards: [f'v.{i+1}' for i,x in enumerate(wildcards.aux_traits.split('_and_'))]
     group: "cfdr"
-    conda: env_path("pid_cfdr_pipeline.yaml")
+    #conda: env_path("pid_cfdr_pipeline.yaml")
     script:
         script_path("cfdr/write_out_per_iteration_cfdr.R")
 
@@ -131,7 +131,7 @@ rule draw_manhattan_with_lead_snp_annotation_for_cfdr:
     threads: 8
     resources:
         runtime = 20
-    conda: env_path("pid_cfdr_pipeline.yaml")
+    #conda: env_path("pid_cfdr_pipeline.yaml")
     script:
         script_path("gwas/plot_gwas_manhattan.R")
 

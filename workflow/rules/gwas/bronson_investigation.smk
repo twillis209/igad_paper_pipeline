@@ -12,7 +12,7 @@ rule retrieve_lead_snps_from_lim_igad:
         "results/igad_meta/allele_investigation/lead_snps_in_lim.tsv"
     threads: 8
     resources:
-    conda: env_path("pid_cfdr_pipeline.yaml")
+    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("igad_meta/retrieve_lead_snps_from_lim_igad.R")
 
 rule retrieve_lead_snp_or_and_alleles_for_unprocessed_igad:
@@ -26,7 +26,7 @@ rule retrieve_lead_snp_or_and_alleles_for_unprocessed_igad:
         "results/igad_meta/allele_investigation/all_alleles_and_ors.tsv"
     threads: 8
     resources:
-    conda: env_path("pid_cfdr_pipeline.yaml")
+    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("igad_meta/retrieve_lead_snp_or_and_alleles.R")
 
 rule add_ref_alt_status_to_st3_allele:
@@ -46,7 +46,7 @@ rule merge_suggestive_snps_from_supp_table_3_with_unprocessed_bronson_and_lim:
         "results/igad_meta/allele_investigation/st3_bronson_and_lim.tsv"
     threads: 8
     resources:
-    conda: env_path("pid_cfdr_pipeline.yaml")
+    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("igad_meta/merge_st3_with_bronson_and_lim.R")
 
 rule tabulate_st3_relationships:
@@ -55,7 +55,7 @@ rule tabulate_st3_relationships:
     output:
         "results/igad_meta/allele_investigation/st3_bronson_and_lim_relationships.tsv"
     localrule: True
-    conda: env_path("pid_cfdr_pipeline.yaml")
+    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("igad_meta/tabulate_st3_relationships.R")
 
 rule handle_allele_flips_for_igad_gwas_bespokely:
@@ -67,7 +67,7 @@ rule handle_allele_flips_for_igad_gwas_bespokely:
         plot = "results/igad_meta/allele_investigation/lim_bronson_conservative_join_zscores.png"
     threads: 8
     resources:
-    conda: env_path("pid_cfdr_pipeline.yaml")
+    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("igad_meta/handle_allele_flips.R")
 
 rule plot_bronson_and_lim_zscores:
@@ -81,5 +81,5 @@ rule plot_bronson_and_lim_zscores:
         suffix_two = ".lim"
     threads: 10
     resources:
-    conda: env_path("pid_cfdr_pipeline.yaml")
+    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("igad_meta/plot_paired_zscores.R")

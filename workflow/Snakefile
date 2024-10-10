@@ -30,25 +30,6 @@ def script_path(script):
 def env_path(env):
     return os.path.join(workflow.basedir, "envs", env)
 
-imd_traits = [
-"asthma-ex",
-"hyperpara",
-"hypothy",
-"derm-ecz",
-"pbc",
-"addi",
-"psc",
-"ra",
-"jia",
-"sle",
-"crohns",
-"t1d",
-"ms",
-"uc-delange",
-"liu-decode-lyons-dennis-iga",
-"igm",
-"igan"]
-
 include: 'rules/lookup_ld_pattern.smk'
 include: 'rules/gwas/gwas.smk'
 include: 'rules/gps/gps.smk'
