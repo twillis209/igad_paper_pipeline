@@ -34,8 +34,8 @@ def env_path(env):
 
 include: 'rules/lookup_ld_pattern.smk'
 include: 'rules/gwas/gwas.smk'
-include: 'rules/gps/gps.smk'
-include: 'rules/cfdr/cfdr.smk'
+include: 'rules/gps.smk'
+include: 'rules/cfdr.smk'
 include: 'rules/sumher.smk'
 include: 'rules/cfdr/igad_cfdr.smk'
 include: 'rules/gwas/igad_meta.smk'

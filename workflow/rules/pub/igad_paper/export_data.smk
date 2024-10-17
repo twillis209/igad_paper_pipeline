@@ -25,7 +25,7 @@ rule write_out_iei_gene_list:
     input:
         "resources/pid/pid_gene_coordinates.tsv"
 
-rule temp_rule_for_all_igad_paper_artifacts:
+rule all_igad_paper_artifacts:
     input:
         # Table 1
         "results/pub/igad_paper/tables/igad_lead_snps.tsv",

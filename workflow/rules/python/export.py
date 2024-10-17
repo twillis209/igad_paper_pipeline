@@ -72,6 +72,3 @@ def tally_predictors_from_log_files(input_files):
         )
 
     return pd.DataFrame(d)
-
-if __name__ == '__main__':
-    compile_sumher_files(snakemake.input, snakemake.output[0])
