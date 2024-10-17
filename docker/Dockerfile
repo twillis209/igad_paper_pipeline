@@ -58,4 +58,7 @@ RUN R -e "remotes::install_github('twillis209/cfdr')"
 RUN wget -O /usr/local/bin/plink2.zip https://s3.amazonaws.com/plink2-assets/plink2_linux_x86_64_20241007.zip
 RUN unzip /usr/local/bin/plink2.zip -d /usr/local/bin
 
+RUN wget -O /usr/local/bin/ldak https://github.com/dougspeed/LDAK/raw/main/ldak6.linux
+RUN chmod u+x /usr/local/bin/ldak
+
 ENTRYPOINT ["/bin/bash"]

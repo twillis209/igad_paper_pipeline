@@ -2,11 +2,9 @@
 
 ## Setup
 
-This repository contains a `snakemake` pipeline to generate the results presented in our paper 'Leveraging pleiotropy identifies common variant associations with selective IgA deficiency'. It has been tested with `v8.11.3` of `snakemake`. 
+This repository contains a `snakemake` pipeline to generate the results presented in our paper 'Leveraging pleiotropy identifies common variant associations with selective IgA deficiency'. It has been tested with `v8.23` of `snakemake`.
 
-We've used `conda` and `docker` to try to make things as reproducible as possible. `snakemake` should pull the necessary dependencies and images managed by these two tools. It's worth noting that building the larger `conda` environments, such as the `pid_cfdr_pipeline` one, can take over an hour. We can't manage installation of `snakemake` itself within the pipeline. I recommend `conda` to manage `snakemake` alongside the pipeline, too.
-
-When cloning this repo, use the `--recurse-submodules` flag to ensure the `gps_cpp` submodule is also cloned: this submodule contains the code for the GPS test software, which can be built by following the instructions [here](https://github.com/twillis209/gps_cpp).
+We've used `conda` and `docker` to try to make things as reproducible as possible. `snakemake` should pull the necessary dependencies and images managed by these two tools. We can't manage installation of `snakemake` itself within the pipeline. I recommend `conda` to manage `snakemake` alongside the pipeline.
 
 As noted in the manuscript, we used `LDAK` (`v5.2`), which can be downloaded from Doug Speed's website [here](https://dougspeed.com/downloads). The code in the pipeline expects `LDAK` to be on the `PATH`.
 
