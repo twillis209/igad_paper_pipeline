@@ -9,6 +9,7 @@ rule compute_ld_scores:
     threads: 8
     resources:
         runtime = 150,
+    container: None
     conda: env_path("ldsc.yaml")
     shell:
         """
@@ -62,6 +63,7 @@ rule munge_randomised_sum_stats:
     threads: 1
     resources:
         runtime = 20
+    container: None
     conda: env_path("ldsc.yaml")
     shell:
         """
@@ -80,5 +82,6 @@ rule estimate_h2:
     threads: 1
     resources:
         runtime = 5
+    container: None
     conda: env_path("ldsc.yaml")
     shell: "ldsc.py --h2 {input.sumstats} --out {output} --ref-ld {params.ld_score_stem} --w-ld {params.ld_score_stem} --out {params.out_stem}"

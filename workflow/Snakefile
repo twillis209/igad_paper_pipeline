@@ -1,5 +1,7 @@
+conda: "envs/global.yaml"
+
 from snakemake.utils import min_version
-min_version("8.0")
+min_version("8.20")
 
 import datetime
 import re
@@ -61,7 +63,7 @@ gwas_strand_policy = {'status': 'nonswitched',
                       'flip': ["rev", "ambig", "revcomp", "comp"]}
 
 module gwas_pipeline:
-    snakefile: github("twillis209/GWAS_tools", path = "workflow/Snakefile", commit = "c79ae049a08d091ec3609ddb70aae5c37b764290")
+    snakefile: github("twillis209/GWAS_tools", path = "workflow/Snakefile", commit = "9098edae8ef3eb26a549d2d019bc3f0e7c2c5ea1")
     config: config["GWAS_tools"]
 
 # Ugly but this prevents import of redundant 1kGP rules
