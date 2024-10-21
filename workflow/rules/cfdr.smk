@@ -60,7 +60,6 @@ checkpoint write_out_per_iteration_cfdr:
         prune_cols = lambda wildcards: [f'prune_in.{i+1}' for i,x in enumerate(wildcards.aux_traits.split('_and_'))],
         v_cols = lambda wildcards: [f'v.{i+1}' for i,x in enumerate(wildcards.aux_traits.split('_and_'))]
     group: "cfdr"
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script:
         script_path("cfdr/write_out_per_iteration_cfdr.R")
 
@@ -131,7 +130,6 @@ rule draw_manhattan_with_lead_snp_annotation_for_cfdr:
     threads: 8
     resources:
         runtime = 20
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script:
         script_path("gwas/plot_gwas_manhattan.R")
 
@@ -227,5 +225,4 @@ rule drop_spurious_igad_cfdr_hits:
     resources:
         runtime = 20
     group: "gwas"
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("igad_meta/drop_spurious_hits.R")

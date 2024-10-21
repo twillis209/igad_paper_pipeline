@@ -60,7 +60,6 @@ rule run_coloc_for_trait_and_iga_at_all_iga_gws_hits:
     params:
         genes = config.get('igad_paper').get('iga_loci')
     localrule: True
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("pub/igad_paper/misc/compile_coloc_results_at_index_snps.R")
 
 use rule run_coloc_for_trait_and_iga_at_all_iga_gws_hits as run_coloc_for_igad_and_aux_traits_at_all_cfdr_hits with:

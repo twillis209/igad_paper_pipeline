@@ -26,7 +26,6 @@ rule create_ebi_associations_intervals_for_imd_panel:
         window = 1e5
     threads: 8
     localrule: True
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path('pub/igad_paper/misc/compile_imd_ebi_associations.R')
 
 rule create_ebi_associations_intervals_for_infectious_disease:
@@ -37,7 +36,6 @@ rule create_ebi_associations_intervals_for_infectious_disease:
     params:
         window = 1e5
     localrule: True
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path('pub/igad_paper/misc/create_ebi_associations_intervals_for_infectious_disease.R')
 
 rule create_ebi_associations_intervals_for_educational_attainment:
@@ -48,7 +46,6 @@ rule create_ebi_associations_intervals_for_educational_attainment:
     params:
         window = 1e5
     localrule: True
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path('pub/igad_paper/misc/create_ebi_associations_intervals_for_edu_attainment.R')
 
 rule create_ebi_associations_intervals_for_bmi:
@@ -59,7 +56,6 @@ rule create_ebi_associations_intervals_for_bmi:
     params:
         window = 1e5
     localrule: True
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path('pub/igad_paper/misc/create_ebi_associations_intervals_for_bmi.R')
 
 rule create_associations_intervals_for_iga:
@@ -70,5 +66,4 @@ rule create_associations_intervals_for_iga:
     params:
         window = 1e5
     localrule: True
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path('pub/igad_paper/misc/create_association_intervals_for_iga.R')

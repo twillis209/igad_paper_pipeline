@@ -8,7 +8,6 @@ rule plot_annotated_igad_manhattan_for_igad_paper:
     resources:
         runtime = 10
     localrule: True
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path('pub/igad_paper/figures/plot_annotated_igad_manhattan.R')
 
 rule plot_annotated_iga_manhattan_for_igad_paper:
@@ -21,7 +20,6 @@ rule plot_annotated_iga_manhattan_for_igad_paper:
     resources:
         runtime = 10
     localrule: True
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path('pub/igad_paper/figures/plot_annotated_iga_manhattan.R')
 
 rule fine_tune_annotations_for_lyons_iga_manhattan:
@@ -30,7 +28,6 @@ rule fine_tune_annotations_for_lyons_iga_manhattan:
     output:
         "results/pub/igad_paper/figures/lyons_iga_manhattan_annotations.tsv"
     localrule: True
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path('pub/igad_paper/figures/fine_tune_annotations_for_lyons_iga_manhattan.R')
 
 rule plot_annotated_lyons_iga_manhattan_for_igad_paper:
@@ -43,7 +40,6 @@ rule plot_annotated_lyons_iga_manhattan_for_igad_paper:
     resources:
         runtime = 10
     localrule: True
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path('pub/igad_paper/figures/plot_annotated_lyons_iga_manhattan.R')
 
 rule process_igad_cfdr_lead_snps_for_manhattan_plot:
@@ -52,7 +48,6 @@ rule process_igad_cfdr_lead_snps_for_manhattan_plot:
     output:
         "results/pub/igad_paper/data/igad_cfdr_lead_snps.tsv"
     localrule: True
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path('pub/igad_paper/figures/process_igad_cfdr_lead_snps_for_manhattan_plot.R')
 
 rule plot_annotated_igad_cfdr_manhattan_for_igad_paper:
@@ -65,7 +60,6 @@ rule plot_annotated_igad_cfdr_manhattan_for_igad_paper:
     resources:
         runtime = 10
     localrule: True
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path('pub/igad_paper/figures/plot_annotated_igad_cfdr_manhattan.R')
 
 rule plot_igad_rg_estimates_with_sample_size:
@@ -75,7 +69,6 @@ rule plot_igad_rg_estimates_with_sample_size:
     output:
         "results/pub/igad_paper/figures/rg_with_sample_size.png"
     localrule: True
-    #conda: env_path('pid_cfdr_pipeline.yaml')
     script: script_path('pub/igad_paper/figures/plot_rg_estimates.R')
 
 rule draw_tnfaip3_locuszoom_plot:
@@ -162,7 +155,6 @@ rule draw_iei_qqplot:
     threads: 8
     resources:
         runtime = 10
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("pub/igad_paper/figures/plot_iei_qqplot.R")
 
 rule draw_rg_gps_plot_for_igad_paper:
@@ -175,7 +167,6 @@ rule draw_rg_gps_plot_for_igad_paper:
     params:
         imd_traits = config.get('igad_paper').get('imd_traits')
     localrule: True
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("pub/igad_paper/figures/draw_rg_gps_plot.R")
 
 
@@ -189,7 +180,6 @@ rule draw_rg_plots_for_igad_and_iga:
     params:
         imd_traits = config.get('igad_paper').get('imd_traits')
     localrule: True
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("pub/igad_paper/figures/draw_rg_plots_for_igad_and_iga.R")
 
 rule draw_imd_rg_plot_for_igad_paper:
@@ -203,7 +193,6 @@ rule draw_imd_rg_plot_for_igad_paper:
         no_of_clusters = 3,
         traits = ['bronson-finngen-igad']+config.get('igad_paper').get('imd_traits_rg_with_igad')
     localrule: True
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("pub/igad_paper/figures/draw_imd_rg_heatmap.R")
 
 rule plot_igad_and_igan_zscores:
@@ -217,7 +206,6 @@ rule plot_igad_and_igan_zscores:
     threads: 8
     resources:
         runtime = 10
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("pub/igad_paper/figures/plot_zscores.R")
 
 use rule plot_igad_and_igan_zscores as plot_igad_and_iga_zscores with:
@@ -249,7 +237,6 @@ rule plot_iga_igad_igan_at_gws_iga_snps:
         igad_no_ci = "results/pub/igad_paper/figures/iga_vs_igad_betas_no_ci.png",
         igad_no_ci_del_outlier = "results/pub/igad_paper/figures/iga_vs_igad_betas_no_ci_del_outlier.png"
     localrule: True
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("pub/igad_paper/figures/plot_iga_igad_igan_at_gws_iga_snps.R")
 
 rule plot_iga_igad_igan_at_gws_igad_snps:
@@ -262,7 +249,6 @@ rule plot_iga_igad_igan_at_gws_igad_snps:
         iga_no_ci = "results/pub/igad_paper/figures/igad_vs_iga_betas_no_ci.png",
         iga_no_ci_del_outlier = "results/pub/igad_paper/figures/igad_vs_iga_betas_no_ci_del_outlier.png"
     localrule: True
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("pub/igad_paper/figures/plot_iga_igad_igan_at_gws_igad_snps.R")
 
 rule all_igad_paper_figures:

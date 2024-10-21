@@ -11,7 +11,6 @@ rule compute_gif_for_igad_data:
     threads: 8
     resources:
     localrule: True
-    #conda: env_path('pid_cfdr_pipeline.yaml')
     script: script_path("pub/igad_paper/misc/compute_gif_for_iei_genic_snps.R")
 
 rule run_gif_permutations_and_compute_pvalue:
@@ -54,7 +53,6 @@ rule compile_igad_paper_related_gif_values:
     output:
         "results/pub/igad_paper/misc/compiled_gif.tsv"
     localrule: True
-    #conda: env_path('pid_cfdr_pipeline.yaml')
     script: script_path('pub/igad_paper/misc/compile_gif_values.R')
 
 rule identify_lead_snp_in_ikzf3_signal:
@@ -87,7 +85,6 @@ rule merge_meta_cfdr_aux_for_igad_paper:
     threads: 16
     resources:
         runtime = 15
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("pub/igad_paper/misc/merge_meta_cfdr_aux.R")
 
 rule merge_suggestive_igad_with_iga_meta:
@@ -100,7 +97,6 @@ rule merge_suggestive_igad_with_iga_meta:
     params:
         window = 1e6
     localrule: True
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("pub/igad_paper/misc/merge_suggestive_igad_with_iga_meta.R")
 
 rule merge_suggestive_igad_with_existing_igan_associations:
@@ -112,7 +108,6 @@ rule merge_suggestive_igad_with_existing_igan_associations:
     params:
         window = 1e6
     localrule: True
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("pub/igad_paper/misc/merge_suggestive_igad_with_igan.R")
 
 rule plot_iga_lead_snp_betas:
@@ -122,7 +117,6 @@ rule plot_iga_lead_snp_betas:
         "results/pub/igad_paper/misc/iga_lead_snp_betas.png"
     threads: 10
     resources:
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("pub/igad_paper/misc/get_iga_lead_snp_betas.R")
 
 rule fetch_ensembl_ids_for_iga_genes:
@@ -133,7 +127,6 @@ rule fetch_ensembl_ids_for_iga_genes:
     params:
         gene_column_label = 'topGene'
     localrule: True
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("pub/igad_paper/misc/fetch_gene_ensembl_ids.R")
 
 use rule fetch_ensembl_ids_for_iga_genes as fetch_ensembl_ids_for_igad_genes with:
@@ -151,7 +144,6 @@ rule write_david_url_for_iga_genes:
     output:
         "results/pub/igad_paper/misc/iga_gene_david_url.txt"
     localrule: True
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("pub/igad_paper/misc/run_david_tool.R")
 
 use rule write_david_url_for_iga_genes as write_david_url_for_igad_genes with:
@@ -170,7 +162,6 @@ rule compile_stats_for_iga_igad_igan_at_gws_iga_snps:
     threads: 8
     resources:
     localrule: True
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("pub/igad_paper/misc/compile_stats_for_iga_igad_igan_at_gws_iga_snps.R")
 
 rule compile_stats_for_iga_igad_igan_at_gws_igad_snps:
@@ -182,5 +173,4 @@ rule compile_stats_for_iga_igad_igan_at_gws_igad_snps:
     threads: 8
     resources:
     localrule: True
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("pub/igad_paper/misc/compile_stats_for_iga_igad_igan_at_gws_igad_snps.R")

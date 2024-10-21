@@ -12,7 +12,6 @@ rule compile_per_annotations:
         "results/pub/igad_paper/misc/ldak/{variant_set}/{variant_type}/human_default/imd_iga_id_bmi_edu_annotations.tsv.gz"
     threads: 8
     localrule: True
-    #conda: env_path('pid_cfdr_pipeline.yaml')
     script: script_path('pub/igad_paper/misc/compile_per_snp_annotations.R')
 
 rule generate_gwas_and_cfdr_annotations:
@@ -28,7 +27,6 @@ rule generate_gwas_and_cfdr_annotations:
         window = 1e5
     threads: 8
     localrule: True
-    #conda: env_path('pid_cfdr_pipeline.yaml')
     script: script_path('pub/igad_paper/misc/generate_gwas_and_cfdr_annotations.R')
 
 rule generate_imd_and_non_imd_annotations:
@@ -40,7 +38,6 @@ rule generate_imd_and_non_imd_annotations:
         out_snps= "results/pub/igad_paper/misc/ldak/{variant_set}/{variant_type}/imd_snps_2"
     threads: 8
     localrule: True
-    #conda: env_path('pid_cfdr_pipeline.yaml')
     script: script_path('pub/igad_paper/misc/generate_imd_annotations.R')
 
 use rule generate_imd_and_non_imd_annotations as generate_id_and_non_id_annotations with:
@@ -83,7 +80,6 @@ rule generate_id_excluding_imd_iga_annotations:
         out_snps = "results/pub/igad_paper/misc/ldak/{variant_set}/{variant_type}/id-not-imd-iga_snps_2"
     threads: 8
     localrule: True
-    #conda: env_path('pid_cfdr_pipeline.yaml')
     script: script_path('pub/igad_paper/misc/generate_id_excluding_imd_annotations.R')
 
 rule calculate_human_default_taggings_with_two_set_partition_annotations:

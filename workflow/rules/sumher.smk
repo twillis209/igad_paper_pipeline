@@ -73,7 +73,6 @@ rule process_sum_stats:
     resources:
         runtime = 15,
     group: "sumher"
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script:
         script_path("ldsc_and_sumher/process_sum_stats.R")
 
@@ -99,7 +98,6 @@ rule process_sum_stats_for_merged_gwas:
     resources:
         runtime = 15,
     group: "sumher"
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script:
         script_path("ldsc_and_sumher/process_sum_stats_for_merged_gwas.R")
 
@@ -186,7 +184,6 @@ rule draw_gps_and_sumher_rg_plot_for_trait_and_imds:
     output:
         "results/ldak/ldak-thin/combined/sans_mhc/snps_only/{trait}_and_imds.png"
     localrule: True
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("ldsc_and_sumher/draw_sumher_rg_plot.R")
 
 rule draw_imd_heatmap:
@@ -196,7 +193,6 @@ rule draw_imd_heatmap:
     output:
         "results/ldak/ldak-thin/combined/sans_mhc/snps_only/imds.png"
     localrule: True
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("ldsc_and_sumher/draw_heatmap.R")
 
 rule collate_h2_estimates_on_liab_scale_from_combined_results:
@@ -206,6 +202,5 @@ rule collate_h2_estimates_on_liab_scale_from_combined_results:
     output:
         "results/ldak/ldak-thin/combined/sans_mhc/snps_only/{trait}_and_imds_with_h2_liab.tsv"
     localrule: True
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("ldsc_and_sumher/compute_h2_liab_estimates.R")
 

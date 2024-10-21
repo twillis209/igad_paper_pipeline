@@ -14,7 +14,6 @@ rule process_igad_snp_loci_table_for_google_sheets:
         window = 2e5,
         full_precision = True
     localrule: True
-    #conda: env_path('pid_cfdr_pipeline.yaml')
     script: script_path('pub/igad_paper/tables/process_snp_table_for_google_sheets.R')
 
 rule add_hg19_to_google_sheet_igad_lead_snps:
@@ -40,7 +39,6 @@ rule merge_lead_snps_with_unprocessed_gwas:
     threads: 8
     resources:
         runtime = 15
-    #conda: env_path('pid_cfdr_pipeline.yaml')
     script: script_path('pub/igad_paper/tables/merge_with_unprocessed_gwas.R')
 
 rule compare_lead_snps_with_unprocessed_gwas:
@@ -49,7 +47,6 @@ rule compare_lead_snps_with_unprocessed_gwas:
     output:
         "results/pub/igad_paper/tables/non_mhc_lead_snp_allele_sign_concordance.tsv"
     localrule: True
-    #conda: env_path('pid_cfdr_pipeline.yaml')
     script: script_path('pub/igad_paper/tables/compare_with_unprocessed_gwas.R')
 
 rule print_meta_analysis_gwas_metadata_table:
@@ -81,7 +78,6 @@ rule merge_iga_lead_snps_with_ieis:
     params:
         window = 1e5
     localrule: True
-    #conda: env_path('pid_cfdr_pipeline.yaml')
     script: script_path('pub/igad_paper/tables/merge_lead_snps_with_pid_genes.R')
 
 rule process_iga_snp_loci_table_for_google_sheets:
@@ -98,7 +94,6 @@ rule process_iga_snp_loci_table_for_google_sheets:
     threads: 8
     resources:
     localrule: True
-    #conda: env_path('pid_cfdr_pipeline.yaml')
     script: script_path('pub/igad_paper/tables/process_iga_snp_table_for_google_sheets.R')
 
 rule print_rg_gwas_metadata_table:
@@ -227,7 +222,6 @@ rule collate_existing_igan_associations:
     output:
         "results/iga_meta/existing_igan_associations.tsv"
     localrule: True
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("iga_meta/collate_existing_igan_associations.R")
 
 rule print_gwas_lead_snps_with_other_associations_table:
@@ -254,7 +248,6 @@ rule outer_join_of_gwas_and_cfdr_lead_snps:
         window = 2e5,
         top_gene_to_chosen_gene = config.get('igad').get('top_gene_to_chosen_gene'),
     localrule: True
-    #conda: env_path('pid_cfdr_pipeline.yaml')
     script: script_path('pub/igad_paper/tables/outer_join_of_gwas_and_cfdr_lead_snps.R')
 
 rule gwas_and_cfdr_gene_coordinates:
@@ -266,7 +259,6 @@ rule gwas_and_cfdr_gene_coordinates:
     params:
         window = 1e5,
     localrule: True
-    #conda: env_path('pid_cfdr_pipeline.yaml')
     script: script_path('pub/igad_paper/tables/fetch_gwas_and_cfdr_gene_coordinates.R')
 
 rule tabulate_iei_genes_across_analyses:
@@ -276,7 +268,6 @@ rule tabulate_iei_genes_across_analyses:
     output:
         "results/pub/igad_paper/tables/iei_genes.tsv"
     localrule: True
-    #conda: env_path('pid_cfdr_pipeline.yaml')
     script: script_path('pub/igad_paper/tables/tabulate_iei_genes_across_analyses.R')
 
 rule write_out_mr_table_for_supplement:

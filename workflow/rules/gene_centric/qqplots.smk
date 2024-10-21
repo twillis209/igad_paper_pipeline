@@ -6,7 +6,6 @@ rule plot_one_sample_qqplot_for_pad_meta_on_pid_and_non_pid:
     threads: 8
     resources:
         runtime = 10
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("gene_centric/pid/plot_one_sample_qqplot.R")
 
 use rule plot_one_sample_qqplot_for_pad_meta_on_pid_and_non_pid as plot_one_sample_qqplot_for_igad_meta_on_pid_and_non_pid with:
