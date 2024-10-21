@@ -14,6 +14,8 @@ container: "docker://twillis209/igad-paper-pipeline:latest"
 
 metadata_daf = pd.read_csv('resources/gwas/metadata/metadata_all_fields.tsv', sep = '\t')
 
+imd_traits = config.get('igad_paper').get('imd_traits')
+
 max_time = 120
 
 def get_permute_time(wildcards, threads):
@@ -37,7 +39,6 @@ include: 'rules/gwas/gwas.smk'
 include: 'rules/gps.smk'
 include: 'rules/cfdr.smk'
 include: 'rules/sumher.smk'
-include: 'rules/cfdr/igad_cfdr.smk'
 include: 'rules/gwas/igad_meta.smk'
 include: 'rules/gwas/bronson_investigation.smk'
 include: 'rules/gwas/iga_meta.smk'
@@ -63,7 +64,7 @@ gwas_strand_policy = {'status': 'nonswitched',
                       'flip': ["rev", "ambig", "revcomp", "comp"]}
 
 module gwas_pipeline:
-    snakefile: github("twillis209/GWAS_tools", path = "workflow/Snakefile", commit = "9098edae8ef3eb26a549d2d019bc3f0e7c2c5ea1")
+    snakefile: github("twillis209/GWAS_tools", path = "workflow/Snakefile", branch = "conda")
     config: config["GWAS_tools"]
 
 # Ugly but this prevents import of redundant 1kGP rules
@@ -90,6 +91,7 @@ use rule rehead from gwas_pipeline as rehead with:
         "resources/gwas/{input_name}.tsv.gz"
 
 module kGP_pipeline:
-    snakefile: github("twillis209/1kGP_pipeline", path = "workflow/Snakefile", tag = "v1.0")
+    snakefile: github("twillis209/1kGP_pipeline", path = "workflow/Snakefile", branch = 'conda')
+    config: config["GWAS_tools"]['1kGP_pipeline']
 
 use rule * from kGP_pipeline as kGP_*

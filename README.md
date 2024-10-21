@@ -1,12 +1,10 @@
-# README
+# `snakemake` pipeline for the paper 'Leveraging pleiotropy identifies common variant associations with selective IgA deficiency'
 
 ## Setup
 
-This repository contains a `snakemake` pipeline to generate the results presented in our paper 'Leveraging pleiotropy identifies common variant associations with selective IgA deficiency'. It has been tested with `v8.23` of `snakemake`.
+This repository contains a `snakemake` pipeline to generate the results presented in our paper ['Leveraging pleiotropy identifies common variant associations with selective IgA deficiency'](https://github.com/twillis209/igad_paper_pipeline). It has been tested with `v8.23` of `snakemake`.
 
 We've used `conda` and `docker` to try to make things as reproducible as possible. `snakemake` should pull the necessary dependencies and images managed by these two tools. We can't manage installation of `snakemake` itself within the pipeline. I recommend `conda` to manage `snakemake` alongside the pipeline.
-
-As noted in the manuscript, we used `LDAK` (`v5.2`), which can be downloaded from Doug Speed's website [here](https://dougspeed.com/downloads). The code in the pipeline expects `LDAK` to be on the `PATH`.
 
 ## Reproduction
 
