@@ -10,8 +10,6 @@ import pandas as pd
 
 configfile: "config/config.yaml"
 
-container: "docker://twillis209/igad-paper-pipeline:latest"
-
 metadata_daf = pd.read_csv('resources/gwas/metadata/metadata_all_fields.tsv', sep = '\t')
 
 imd_traits = config.get('igad_paper').get('imd_traits')

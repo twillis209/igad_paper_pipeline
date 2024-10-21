@@ -1,0 +1,16 @@
+name: genes_and_annotations
+channels:
+- conda-forge
+- bioconda
+dependencies:
+- r-base >= 4.2
+- r-data.table >= 1.14.8
+- r-magrittr
+- r-r.utils
+- bioconductor-genomicranges
+- bioconductor-txdb.hsapiens.ucsc.hg38.knowngene
+- bioconductor-genomicfeatures
+- bioconductor-org.hs.eg.db
+- bioconductor-ensembldb
+- bioconductor-ensdb.hsapiens.v75
+- bioconductor-ensdb.hsapiens.v86

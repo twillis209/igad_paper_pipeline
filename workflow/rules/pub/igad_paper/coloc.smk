@@ -18,7 +18,6 @@ rule subset_summary_statistics_about_variant_for_igad_paper:
         window = lambda w: int(w.window_size.replace('kb', '')) * 1000
     threads: 8
     resources:
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("pub/igad_paper/misc/subset_summary_statistics_about_variant_for_igad_paper.R")
 
 def map_igad_paper_abbrv_to_metadata_abbrv(paper_abbrv):
@@ -44,7 +43,7 @@ rule run_coloc_for_two_traits_for_igad_paper:
         second_se = lambda w: f'SE.{w.second_trait}',
         maf_col = 'ALT_FREQS',
     localrule: True
-    #conda: env_path("coloc.yaml")
+    conda: env_path("coloc.yaml")
     script: script_path("pub/igad_paper/misc/run_coloc_for_igad_and_aux_trait.R")
 
 rule run_coloc_at_runx3_locus:
