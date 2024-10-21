@@ -38,7 +38,7 @@ rule run_iterative_cfdr:
         v_cols = lambda wildcards: [f'v.{i+1}' for i,x in enumerate(wildcards.aux_traits.split('_and_'))],
         p_threshold = lambda wildcards: pow(10, -int(wildcards.cfdr_threshold)),
     group: "cfdr"
-    #conda: env_path("cfdr.yaml")
+    conda: env_path("cfdr.yaml")
     script:
         script_path("cfdr/iterative_cfdr.R")
 

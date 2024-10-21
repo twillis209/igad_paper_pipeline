@@ -412,7 +412,7 @@ rule draw_locuszoom_plot_without_r2:
     params:
         window = lambda w: int(w.window_size.replace('kb', '')) * 1000,
         with_genes = lambda w: True if w.gene_track == 'with_genes' else False
-    #conda: env_path("locuszoomr.yaml")
+    container: "docker://twillis209/r-locuszoomr:latest"
     script: script_path("gwas/draw_locuszoom_plot.R")
 
 use rule draw_locuszoom_plot_without_r2 as draw_locuszoom_plot_with_r2 with:

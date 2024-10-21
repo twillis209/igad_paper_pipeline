@@ -194,7 +194,7 @@ rule plot_ahi1_tnfaip3_locus:
     resources:
         runtime = 20
     group: "gwas"
-    #conda: env_path("locuszoomr.yaml")
+    container: "docker://twillis209/r-locuszoomr:latest"
     script: script_path("igad_meta/plot_ahi1_tnfaip3.R")
 
 use rule distance_clump_igad_meta as distance_clumped_igad_meta_with_ukb with:

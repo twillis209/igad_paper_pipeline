@@ -30,7 +30,7 @@ rule run_gif_permutations_and_compute_pvalue:
     threads: 20
     resources:
         runtime = 120
-    #conda: env_path("qvalue_and_boot.yaml")
+    conda: env_path("qvalue_and_boot.yaml")
     script: script_path("pub/igad_paper/misc/run_gif_permutations_and_compute_pvalue.R")
 
 rule compile_igad_paper_related_gif_values:

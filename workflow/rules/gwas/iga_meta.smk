@@ -173,7 +173,7 @@ rule plot_iga_locus_tetrad:
     resources:
         runtime = 5
     group: "gwas"
-    #conda: env_path("locuszoomr.yaml")
+    container: "docker://twillis209/r-locuszoomr:latest"
     script: script_path("iga_meta/plot_iga_locus_tetrad.R")
 
 rule plot_all_meta_gws_loci:

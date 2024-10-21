@@ -60,7 +60,6 @@ rule print_meta_analysis_gwas_metadata_table:
         caption = "The GWAS data sets included in the SIgAD and IgA meta-analyses, and SIgAD cFDR analysis. Pan-UKB is the Pan-UK Biobank study.",
         label = "meta_analysis_gwas_metadata"
     localrule: True
-    #conda: env_path('latex_tables.yaml')
     script: script_path('pub/igad_paper/tables/print_gwas_metadata_table.R')
 
 use rule add_hg19_to_google_sheet_igad_lead_snps as add_hg19_to_iga_lead_snps with:
@@ -107,7 +106,6 @@ rule print_rg_gwas_metadata_table:
         caption = "The GWAS data sets with which we measured SIgAD's genetic similarity. IMSGC is the International Multiple Sclerosis Genetics Consortium. Pan-UKB is the Pan-UK Biobank study.",
         label = "rg_gwas_metadata"
     localrule: True
-    #conda: env_path('latex_tables.yaml')
     script: script_path('pub/igad_paper/tables/print_rg_gwas_metadata_table.R')
 
 rule print_lead_snp_table:
@@ -119,7 +117,6 @@ rule print_lead_snp_table:
         caption = "Lead SNPs from genome-wide significant associations in the GWAS meta-analysis and cFDR analysis. `Novel' indicates whether an association with SIgAD has previously been reported for a SNP. `IEI gene' indicates whether the SNP is located in, near, or is otherwise associated with a gene known to harbour variants causal for IEIs. `Analysis' indicates whether the variant was first identified in the GWAS meta-analysis or the cFDR analysis. `OR' is odds ratio.",
         label = "lead_snp_table"
     localrule: True
-    #conda: env_path('latex_tables.yaml')
     script: script_path('pub/igad_paper/tables/print_lead_snp_table.R')
 
 rule print_igad_lead_snp_table:
@@ -132,7 +129,6 @@ rule print_igad_lead_snp_table:
         caption = "Lead SNPs from genome-wide significant associations in the SIgAD GWAS meta-analysis. The `Variant' column gives the rsID of each SNP, and the reference and effect alleles separated by `$>$'. `Gene' gives the gene(s) with the most evidence linking it/them to the association signal. `Novel' indicates whether an association with SIgAD has previously been reported for a SNP. `IEI gene' indicates whether the SNP is located in, near, or is otherwise associated with a gene known to harbour variants causal for IEIs. `OR' is odds ratio.",
         label = "igad_lead_snp_table"
     localrule: True
-    #conda: env_path('latex_tables.yaml')
     script: script_path('pub/igad_paper/tables/print_igad_lead_snp_table.R')
 
 rule print_cfdr_lead_snp_table:
@@ -145,7 +141,6 @@ rule print_cfdr_lead_snp_table:
         caption = r"Lead SNPs from genome-wide significant associations in the cFDR analysis. The `Variant' column gives the rsID of each SNP, and the reference and effect alleles separated by `$>$'. `Gene' gives the gene(s) with the most evidence linking it/them to the association signal. `Novel' indicates whether an association with SIgAD has previously been reported for a SNP. `IEI gene' indicates whether the SNP is located in, near, or is otherwise associated with a gene known to harbour variants causal for IEIs. We list the p-values for SIgAD and the three auxiliary traits; `RA' is rheumatoid arthritis. `Auxiliary trait significance' indicates whether each auxiliary trait reached genome-wide significance: `$+$' indicates a significant risk effect, `$-$' a significant protective effect, and `$\cdot$' no significant effect. The `v-value' is the output of the cFDR procedure and a p-value against a null hypothesis of no association of the SNP with SIgAD after conditioning on the auxiliary traits.",
         label = "cfdr_lead_snp_table"
     localrule: True
-    #conda: env_path('latex_tables.yaml')
     script: script_path('pub/igad_paper/tables/print_cfdr_lead_snp_table.R')
 
 rule print_iga_lead_snp_table:
@@ -160,7 +155,6 @@ rule print_iga_lead_snp_table:
         # Missense variant so we know it has nothing to do with TNFSF12-TNFSF13
         iei_false_positives = ['CD68']
     localrule: True
-    #conda: env_path('latex_tables.yaml')
     script: script_path('pub/igad_paper/tables/print_iga_lead_snp_table.R')
 
 rule print_lyons_iga_lead_snp_table:
@@ -173,7 +167,6 @@ rule print_lyons_iga_lead_snp_table:
         caption = "Lead SNPs from genome-wide significant associations in our GWAS of serum IgA. The `Variant' column gives the rsID of each SNP, and the reference and effect alleles separated by `$>$'. `Gene' gives the gene(s) with the most evidence linking it/them to the association signal. `Novel' indicates whether an association with serum IgA had previously been reported for a SNP. `Effect direction' indicates whether the effect allele is associated with an IgA-increasing (`$+$') or decreasing (`$-$') effect.",
         label = "lyons_iga_lead_snps"
     localrule: True
-    #conda: env_path('latex_tables.yaml')
     script: script_path('pub/igad_paper/tables/print_lyons_iga_lead_snp_table.R')
 
 rule locate_lead_snps:
@@ -182,7 +175,7 @@ rule locate_lead_snps:
     output:
         "results/pub/igad_paper/tables/gene_exon_intron_lists.RData"
     localrule: True
-    #conda: env_path('gene_annotations.yaml')
+    conda: env_path('gene_annotations.yaml')
     script: script_path('pub/igad_paper/tables/locate_lead_snps.R')
 
 
@@ -198,7 +191,6 @@ rule print_tnfaip3_gws_table:
                                    "li": "GCST002217",
                                    "tsoi": "GCST005527"}
     localrule: True
-    #conda: env_path('latex_tables.yaml')
     script: script_path('pub/igad_paper/tables/print_tnfaip3_gws_table.R')
 
 rule print_iga_gwas_metadata_table:
@@ -212,7 +204,6 @@ rule print_iga_gwas_metadata_table:
         caption = "The serum IgA GWAS data sets we subjected to meta-analysis. The 8,000-sample GWAS is as yet unpublished.",
         label = "iga_gwas_metadata"
     localrule: True
-    #conda: env_path('latex_tables.yaml')
     script: script_path('pub/igad_paper/tables/print_iga_gwas_metadata_table.R')
 
 rule collate_existing_igan_associations:
@@ -235,7 +226,6 @@ rule print_gwas_lead_snps_with_other_associations_table:
         caption = "The association of the lead SNPs from the SIgAD meta-analysis with other immune-mediated diseases (IMDs) as identified by GWAS. The `Variant' column gives the rsID of each SNP, and the reference and effect alleles separated by `$>$'. `Gene' gives the gene(s) with the most evidence linking it/them to the association signal. `Novel' indicates whether an association with SIgAD has previously been reported for a SNP. `IMD associations in LD' lists IMDs which have significantly associated variants in linkage disequilibrium with the SIgAD-associated variant given in `Variant'.",
         label = "lead_snp_table_with_others"
     localrule: True
-    #conda: env_path('latex_tables.yaml')
     script: script_path('pub/igad_paper/tables/print_lead_snps_with_other_associations_table.R')
 
 rule outer_join_of_gwas_and_cfdr_lead_snps:
