@@ -14,7 +14,7 @@ wildcard_constraints:
     window_size = "\\d+kb",
     flank_size = "\\d+kb",
     r2 = "0_\\d+",
-    download_name = '[a-z0-9\-]+',
+    download_name = '[a-z0-9\\-]+',
     input_name = fr'^(?!.*(?:{pattern})).*$',
     draws = "\\d+",
     info = "0_\\d+",
@@ -45,4 +45,4 @@ wildcard_constraints:
     screen = "prescreen|postscreen",
     cfdr_inclusion = "with_cfdr|sans_cfdr",
     aux_inclusion = "with_aux|sans_aux",
-    locus = "[\w-]+"
+    locus = "[\\w-]+"

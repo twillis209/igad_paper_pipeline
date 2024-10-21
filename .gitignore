@@ -12,6 +12,7 @@ thaventhiran_imds
 extra_scripts
 *.RData
 resources
+!workflow/resources
 results
 workflow/scripts/gcta
 tmp

@@ -50,17 +50,17 @@ def tally_predictors_from_log_files(input_files):
         with open(x, 'r') as fh:
             line = fh.readline()
 
-            while not re.match('Have found valid summary statistics for ?all (\d+) predictors', line):
+            while not re.match('Have found valid summary statistics for ?all (\\d+) predictors', line):
                 line = fh.readline()
 
-            valid_predictors_A = int(re.match('Have found valid summary statistics for ?all (\d+) predictors', line).group(1))
+            valid_predictors_A = int(re.match('Have found valid summary statistics for ?all (\\d+) predictors', line).group(1))
 
             line = fh.readline()
 
-            while not re.match('Have found valid summary statistics for ?all (\d+) predictors', line):
+            while not re.match('Have found valid summary statistics for ?all (\\d+) predictors', line):
                 line = fh.readline()
 
-            valid_predictors_B = int(re.match('Have found valid summary statistics for ?all (\d+) predictors', line).group(1))
+            valid_predictors_B = int(re.match('Have found valid summary statistics for ?all (\\d+) predictors', line).group(1))
 
         d.append(
             {
