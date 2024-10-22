@@ -233,7 +233,7 @@ rule collate_existing_igan_associations:
 rule print_gwas_lead_snps_with_other_associations_table:
     input:
         igad = "results/pub/igad_paper/tables/non_mhc_lead_snps.tsv",
-        others = "results/igad_meta/gws/lead_snps_and_non_igad_associations.tsv"
+        others = "resources/igad_meta/gws/lead_snps_and_non_igad_associations.tsv"
     output:
         tex = "results/pub/igad_paper/tables/lead_snps_with_other_associations.tex",
         tsv = "results/pub/igad_paper/tables/lead_snps_with_other_associations.tsv"

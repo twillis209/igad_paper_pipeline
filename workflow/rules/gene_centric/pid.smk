@@ -1,7 +1,7 @@
 # NB: In supplement to Tangye et al. (2022) IUIS paper
 rule extract_gene_names_from_tangye_2022_list:
     input:
-        "resources/pid/10875_2022_1289_MOESM2_ESM.xlsx"
+        "resources/pid_genes/tangye_table.xlsx"
     output:
         "resources/pid/pid_genes.tsv"
     #conda: env_path("pid_cfdr_pipeline.yaml")

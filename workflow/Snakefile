@@ -39,6 +39,7 @@ include: 'rules/gwas/gwas.smk'
 include: 'rules/gps.smk'
 include: 'rules/cfdr.smk'
 include: 'rules/sumher.smk'
+include: 'rules/misc.smk'
 include: 'rules/gwas/igad_meta.smk'
 include: 'rules/gwas/bronson_investigation.smk'
 include: 'rules/gwas/iga_meta.smk'
@@ -64,7 +65,7 @@ gwas_strand_policy = {'status': 'nonswitched',
                       'flip': ["rev", "ambig", "revcomp", "comp"]}
 
 module gwas_pipeline:
-    snakefile: github("twillis209/GWAS_tools", path = "workflow/Snakefile", branch = "conda")
+    snakefile: github("twillis209/GWAS_tools", path = "workflow/Snakefile", commit = "37e1724")
     config: config["GWAS_tools"]
 
 # Ugly but this prevents import of redundant 1kGP rules
