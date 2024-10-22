@@ -21,7 +21,6 @@ rule run_lyons_and_liu_iga_meta_analysis:
     resources:
         runtime = 10
     group: "gwas"
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script:
         script_path("iga_meta/run_meta_analysis.R")
 
@@ -81,7 +80,6 @@ checkpoint distance_clump_iga_meta:
     resources:
         runtime = 5
     group: "gwas"
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("iga_meta/distance_clump.R")
 
 use rule annotate_lead_snps as annotate_iga_meta_lead_snps with:
@@ -106,7 +104,6 @@ rule collate_existing_iga_associations:
     output:
         "results/iga_meta/existing_associations.tsv"
     localrule: True
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("iga_meta/collate_existing_associations.R")
 
 use rule subset_summary_statistics_about_variant as subset_summary_statistics_about_variant_for_iga_meta with:
@@ -176,7 +173,6 @@ rule plot_iga_locus_tetrad:
     resources:
         runtime = 5
     group: "gwas"
-    #conda: env_path("locuszoomr.yaml")
     script: script_path("iga_meta/plot_iga_locus_tetrad.R")
 
 rule plot_all_meta_gws_loci:
@@ -201,7 +197,6 @@ rule merge_liu_decode_lead_snps_with_meta_sumstats:
         "results/iga_meta/with_decode/with_dennis/liu_lead_snps_with_sum_stats.tsv.gz"
     threads: 8
     localrule: True
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("iga_meta/merge_liu_lead_snps_with_sum_stats.R")
 
 rule merge_lead_snps_with_existing_associations:
@@ -214,7 +209,6 @@ rule merge_lead_snps_with_existing_associations:
         window = 1e6,
         novel = config.get('iga').get('novel')
     localrule: True
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("iga_meta/merge_lead_snps_with_existing_associations.R")
 
 rule merge_all_iga_associations_with_iei_genes:
@@ -224,5 +218,4 @@ rule merge_all_iga_associations_with_iei_genes:
     output:
         "results/iga_meta/all_associations_near_pid_genes.tsv"
     localrule: True
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("iga_meta/merge_all_iga_associations_with_iei_genes.R")

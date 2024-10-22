@@ -4,7 +4,6 @@ rule extract_gene_names_from_tangye_2022_list:
         "resources/pid_genes/tangye_table.xlsx"
     output:
         "resources/pid/pid_genes.tsv"
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     localrule: True
     script: script_path("gene_centric/pid/tabulate_pid_genes.R")
 
@@ -24,7 +23,6 @@ rule create_pid_gene_intervals:
         rds = "results/pid/{window}kb_pid_genes.rds"
     params:
         window = lambda w: float(w.window.replace('_', '.'))*1000
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     localrule: True
     script: script_path("gene_centric/pid/create_pid_gene_intervals.R")
 
@@ -45,7 +43,6 @@ rule subset_gwas_using_pid_gene_intervals:
     threads: 8
     resources:
         runtime = 30
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("gene_centric/pid/intersect_gwas_and_gene_intervals.R")
 
 rule draw_manhattan_for_subset_gwas:
@@ -61,7 +58,6 @@ rule draw_manhattan_for_subset_gwas:
     threads: 8
     resources:
         runtime = 30
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("gwas/plot_gwas_manhattan.R")
 
 rule create_all_gene_granges:
@@ -70,7 +66,6 @@ rule create_all_gene_granges:
     params:
         window = lambda w: float(w.window.replace('_', '.'))*1000
     localrule: True
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("gene_centric/pid/create_all_gene_intervals.R")
 
 rule join_pad_meta_on_pid_and_non_pid_granges:
@@ -82,7 +77,6 @@ rule join_pad_meta_on_pid_and_non_pid_granges:
         "results/pid/{window}kb/pad_with_pid_and_non_pid.tsv.gz"
     params:
         window = lambda w: float(w.window.replace('_', '.'))*1000
-    #conda: env_path("pid_cfdr_pipeline.yaml")
     script: script_path("gene_centric/pid/join_gwas_on_pid_and_non_pid_granges.R")
 
 use rule join_pad_meta_on_pid_and_non_pid_granges as join_igad_meta_on_pid_and_non_pid_granges with:
