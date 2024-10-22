@@ -212,7 +212,7 @@ rule look_up_gws_snps_in_tnfaip3_signal:
     threads: 8
     resources:
     localrule: True
-    #conda: env_path("locuszoomr.yaml")
+    container: "docker://twillis209/r-locuszoomr:latest"
     script: script_path("igad_meta/look_up_gws_snps_in_tnfaip3_signal.R")
 
 rule fetch_gws_associations_for_tnfaip3_gws_snps:
