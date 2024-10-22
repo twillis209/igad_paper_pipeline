@@ -32,7 +32,7 @@ rule copy_bronson_finngen_meta_analysis_to_results:
 rule apply_genomic_control_to_igad_meta_for_cfdr:
     input:
         gwas = "results/igad_meta/meta.tsv.gz",
-        gif = "results/igad_meta/gif.tsv"
+        gif = "results/igad_meta/with_mhc_gif.tsv"
     output:
         "results/igad_meta/meta_gc.tsv.gz"
     params:
