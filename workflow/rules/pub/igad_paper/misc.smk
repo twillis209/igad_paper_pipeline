@@ -33,42 +33,6 @@ rule run_gif_permutations_and_compute_pvalue:
     conda: env_path("qvalue_and_boot.yaml")
     script: script_path("pub/igad_paper/misc/run_gif_permutations_and_compute_pvalue.R")
 
-rule compile_igad_paper_related_gif_values:
-    input:
-        with_mhc_dennis_iga_gif = "results/processed_gwas/gif/dennis-iga_with_mhc.tsv",
-        sans_mhc_dennis_iga_gif = "results/processed_gwas/gif/dennis-iga_sans_mhc.tsv",
-        with_mhc_liu_decode_iga_gif = "results/processed_gwas/gif/liu-decode-iga_with_mhc.tsv",
-        sans_mhc_liu_decode_iga_gif = "results/processed_gwas/gif/liu-decode-iga_sans_mhc.tsv",
-        with_mhc_lyons_iga_gif = "results/processed_gwas/gif/iga_with_mhc.tsv",
-        sans_mhc_lyons_iga_gif = "results/processed_gwas/gif/iga_sans_mhc.tsv",
-        with_mhc_iga_meta_gif = "results/iga_meta/with_decode/with_dennis/with_mhc_gif.tsv",
-        sans_mhc_iga_meta_gif = "results/iga_meta/with_decode/with_dennis/sans_mhc_gif.tsv",
-        with_mhc_bronson_igad_gif = "results/processed_gwas/gif/igad_with_mhc.tsv",
-        sans_mhc_bronson_igad_gif = "results/processed_gwas/gif/igad_sans_mhc.tsv",
-        with_mhc_finngen_igad_gif = "results/processed_gwas/gif/finngen-igad_with_mhc.tsv",
-        sans_mhc_finngen_igad_gif = "results/processed_gwas/gif/finngen-igad_sans_mhc.tsv",
-        with_mhc_igad_meta_gif = "results/igad_meta/with_mhc_gif.tsv",
-        sans_mhc_igad_meta_gif = "results/igad_meta/sans_mhc_gif.tsv",
-        imd_gif_files = [f"results/processed_gwas/gif/{x}_{y}.tsv" for y in ['with_mhc', 'sans_mhc'] for x in config.get('igad_paper').get('imd_traits')]
-    output:
-        "results/pub/igad_paper/misc/compiled_gif.tsv"
-    localrule: True
-    script: script_path('pub/igad_paper/misc/compile_gif_values.R')
-
-rule identify_lead_snp_in_ikzf3_signal:
-    input:
-        "results/igad_meta/meta.tsv.gz"
-    output:
-        "results/pub/igad_paper/misc/ikzf3_igad_meta_sumstats.tsv"
-    params:
-        chrom = 17,
-        start = 39700000,
-        stop = 40000000
-    localrule: True
-    shell: """
-    zcat {input} | awk 'NR == 1 || $1 == {params.chrom} && $2 >= {params.start} && $2 <= {params.stop}' > {output}
-    """
-
 rule merge_meta_cfdr_aux_for_igad_paper:
     input:
         igad = "results/igad_meta/meta.tsv.gz",
@@ -118,40 +82,6 @@ rule plot_iga_lead_snp_betas:
     threads: 10
     resources:
     script: script_path("pub/igad_paper/misc/get_iga_lead_snp_betas.R")
-
-rule fetch_ensembl_ids_for_iga_genes:
-    input:
-        "results/pub/igad_paper/tables/iga_non_mhc_lead_snps.tsv",
-    output:
-        "results/pub/igad_paper/misc/iga_gene_ids.tsv"
-    params:
-        gene_column_label = 'topGene'
-    localrule: True
-    script: script_path("pub/igad_paper/misc/fetch_gene_ensembl_ids.R")
-
-use rule fetch_ensembl_ids_for_iga_genes as fetch_ensembl_ids_for_igad_genes with:
-    input:
-        "results/pub/igad_paper/tables/igad_lead_snps.tsv",
-    output:
-        "results/pub/igad_paper/misc/igad_gene_ids.tsv"
-    params:
-        gene_column_label = 'chosen_gene'
-    localrule: True
-
-rule write_david_url_for_iga_genes:
-    input:
-        "results/pub/igad_paper/misc/iga_gene_ids.tsv"
-    output:
-        "results/pub/igad_paper/misc/iga_gene_david_url.txt"
-    localrule: True
-    script: script_path("pub/igad_paper/misc/run_david_tool.R")
-
-use rule write_david_url_for_iga_genes as write_david_url_for_igad_genes with:
-    input:
-        "results/pub/igad_paper/misc/igad_gene_ids.tsv"
-    output:
-        "results/pub/igad_paper/misc/igad_gene_david_url.txt"
-    localrule: True
 
 rule compile_stats_for_iga_igad_igan_at_gws_iga_snps:
     input:
