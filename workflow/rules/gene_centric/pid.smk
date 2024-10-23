@@ -2,11 +2,10 @@
 rule download_tangye_table:
     output:
         "resources/pid_genes/tangye_table.xlsx"
+    params:
+        url = "ncbi.nlm.nih.gov/pmc/articles/PMC9244088/bin/10875_2022_1289_MOESM2_ESM.xlsx"
     localrule: True
-    shell:
-    """
-    wget -O {output} ncbi.nlm.nih.gov/pmc/articles/PMC9244088/bin/10875_2022_1289_MOESM2_ESM.xlsx
-    """
+    shell: "wget -O {output} {params.url}"
 
 rule extract_gene_names_from_tangye_2022_list:
     input:

@@ -168,7 +168,7 @@ checkpoint touch_cfdr_lead_snp_files:
         for x in daf['SNPID']:
             shell(f"touch {params.out_dir}/{x.replace(':', '_')}.done")
 
-use rule subset_snps_for_lead_snp_window as subset_snps_for_cfdr_lead_snp_window with:
+rule subset_snps_for_cfdr_lead_snp_window:
     output:
         temp(multiext("results/processed_gwas/{trait}/{snp_set}/{clump_threshold}/lead_snps/{snp_id}/neighbourhood", ".pgen", ".pvar.zst", ".psam")),
         range_file = temp("results/processed_gwas/{trait}/{snp_set}/{clump_threshold}/lead_snps/{snp_id}/range.txt")
@@ -176,6 +176,17 @@ use rule subset_snps_for_lead_snp_window as subset_snps_for_cfdr_lead_snp_window
         in_stem = "results/1kG/hg38/eur/snps_only/qc/all/merged",
         out_stem = "results/processed_gwas/{trait}/{snp_set}/{clump_threshold}/lead_snps/{snp_id}/neighbourhood",
         window_width = 1e6
+    threads: 8
+    group: "gwas"
+    run:
+        chrom = wildcards.snp_id.split('_')[0]
+        start = int(wildcards.snp_id.split('_')[1])-int(params.window_width/2)
+        stop = int(wildcards.snp_id.split('_')[1])+int(params.window_width/2)
+
+        with open(output.range_file, 'w') as outfile:
+            outfile.write(f"{chrom}\t{start}\t{stop}\t{wildcards.snp_id}\n")
+
+        shell("plink2 --memory {resources.mem_mb} --threads {threads} --pfile {params.in_stem} vzs --extract range {output.range_file} --make-pgen vzs --out {params.out_stem}")
 
 use rule distance_clump_gwas as distance_clump_fcfdr with:
     input:
