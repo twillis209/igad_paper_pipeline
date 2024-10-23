@@ -169,15 +169,6 @@ rule print_lyons_iga_lead_snp_table:
     localrule: True
     script: script_path('pub/igad_paper/tables/print_lyons_iga_lead_snp_table.R')
 
-rule locate_lead_snps:
-    input:
-        "results/pub/igad_paper/tables/non_mhc_lead_snps.tsv",
-    output:
-        "results/pub/igad_paper/tables/gene_exon_intron_lists.RData"
-    localrule: True
-    script: script_path('pub/igad_paper/tables/locate_lead_snps.R')
-
-
 rule print_tnfaip3_gws_table:
     input:
         "results/pub/igad_paper/resources/gwas-association-downloaded_2024-02-13-ensemblMappedGenes_TNFAIP3.tsv"
